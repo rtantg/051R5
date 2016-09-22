@@ -1,0 +1,368 @@
+* { margin:0px; padding:0px; }
+img { vertical-align:middle; }
+html { background:#eeeeee; }
+body    {
+    background:#f9f9f9;
+    border:1px solid #ccc;
+    width: 640px;
+    margin:54px auto;
+    padding:12px;
+    font-family: "Lucida Bright","Georgia","serif";
+    font-family: "Arial","Georgia","sans-serif";
+    font-size:14px;
+}
+header  {
+   width:608px;
+   padding: 8px;
+   margin: 8px auto;
+   background: #5cb85c;
+   overflow:hidden;
+}
+article {
+   width:616px;
+   padding:8px 0px;
+   margin:auto;
+   overflow:hidden;
+}
+footer  {
+   width:616px;
+   height:25px;
+   padding:5px;
+   margin:12px auto;
+   border-top:1px solid #ccc;
+   font-size:13px;
+}
+form {
+   border:1px solid #cccccc;
+   width: 614px;
+   overflow:hidden;
+}
+ul#menu {
+   width:608px;
+   list-style-type:none;
+   float:left;
+}
+ul#menu li {
+   padding:5px;
+   float:left;
+}
+ul#menu a {
+   display:block;
+   padding-left:0px;
+   padding-right:15px;
+   text-decoration: none;
+   font-size:16px;
+   font-weight: normal;
+   color:#000000;
+}
+ul#menu a:hover {
+   color:#f9f9f9;
+}
+div {
+   float: left;
+}
+.display-board {
+   width: 614px;
+   border:1px solid #ccc;
+   margin: 12px 0px;
+}
+.display-board h2 {
+   font-size: 18px;
+   text-align:center;
+   background: #5bc0de;
+   padding: 2px;
+   clear:both;
+}
+.sub-board h3 {
+   text-align:center;
+   font-size: 14px;
+   padding: 4px;
+   clear:both;
+}
+.display-board .header{
+   width: 616px;
+   border-bottom: 1px solid #000000;
+   font-size: 14px;
+   font-weight: 600;
+   padding: 3px 0px;
+}
+.sub-board {
+   width:596px;
+   padding: 10px;
+}
+.display-board .line-wrapper{
+   width:606px;
+   margin: 5px;
+   text-align: left;
+}
+#login-form .line-wrapper .username ,
+#login-form .line-wrapper .password {
+width: 200px;
+}
+#user-input-form .sub-board .line-wrapper input {
+   float: left;
+   width: 200px;
+   margin: auto;
+}
+#user-input-form .sub-board {
+   margin: 0px auto;
+   width: 500px;
+}
+#user-input-form .sub-board .line-wrapper .name,
+#user-input-form .sub-board .line-wrapper .username,
+#user-input-form .sub-board .line-wrapper .password,
+#user-input-form .sub-board .line-wrapper .email {
+   width: 120px;
+}
+#user-input-form .sub-board .submit {
+   padding: 12px 0px;
+   width: 614px;
+}
+#select-event-form .header .thuis ,
+#select-event-form .header .uit {
+   text-align: center;
+   width: 180px;
+}
+#select-event-form .header .datum {
+   width: 256px;
+   text-align: center;
+}
+#select-event-form .sub-board .thuis,
+#select-event-form .sub-board .uit {
+   width: 180px;
+   text-align: center;
+}
+#select-event-form .sub-board .date {
+   float:right;
+}
+#select-event-form .submit {
+   width: 604px;
+   margin: 12px 0px;
+   padding-left: 12px;
+}
+#update-score-form .sub-board .thuis,
+#update-score-form .sub-board .uit ,
+#update-score-form .header .thuis,
+#update-score-form .header .uit {
+   width: 35%;
+   text-align: center;
+}
+#update-score-form .sub-board .thuis{
+   text-align: right;
+   font-size: 20px;
+}
+#update-score-form .sub-board .uit {
+   text-align: left;
+   font-size: 20px;
+}
+#update-score-form .sub-board .uitslag ,
+#update-score-form .header .uitslag {
+   width: 30%;
+   text-align: center;
+}
+#update-score-form .sub-board .uitslag {
+   padding-top:20px;
+}
+#select-club-form .sub-board .select-club,
+#select-club-form .sub-board .submit {
+   width: 50%;
+   text-align: center;
+}
+#stand .header .club,
+#stand .header .gespeeld,
+#stand .header .doelpunten,
+#stand .header .tegen,
+#stand .header .saldo,
+#stand .header .gewonnen ,
+#stand .header .gelijk ,
+#stand .header .verloren,
+#stand .header .punten{
+   text-align: center;
+}
+#stand .header .club{
+   width: 162px;
+}
+#stand .header .gespeeld{
+   width: 108px;
+}
+#stand .header .doelpunten{
+   width: 108px;
+}
+#stand .header .tegen{
+   width: 30px;
+}
+#stand .header .saldo{
+   width: 30px;
+}
+#stand .header .gewonnen {
+   width: 30px;
+}
+#stand .header .gelijk {
+   width: 30px;
+}
+#stand .header .verloren{
+   width: 30px;
+}
+#stand .header .punten{
+   width: 30px;
+   padding-left: 25px;
+}
+#stand .sub-board .line-wrapper .club,
+#stand .sub-board .line-wrapper .gespeeld,
+#stand .sub-board .line-wrapper .doelpunten,
+#stand .sub-board .line-wrapper .tegen,
+#stand .sub-board .line-wrapper .saldo,
+#stand .sub-board .line-wrapper .gewonnen ,
+#stand .sub-board .line-wrapper .gelijk ,
+#stand .sub-board .line-wrapper .verloren,
+#stand .sub-board .line-wrapper .punten{
+   text-align:center;
+   vertical-align: middle;
+   padding-top: 5px;
+}
+#stand .sub-board .line-wrapper .club{
+   width: 150px;
+   text-align:right;
+   padding: 0px;
+   padding-right: 42px;
+   height: 30px;
+}
+#stand .sub-board .line-wrapper .gespeeld{
+   width: 30px;
+}
+#stand .sub-board .line-wrapper .doelpunten{
+   width: 22px;
+   padding-left: 50px;
+}
+#stand .sub-board .line-wrapper .tegen{
+   width: 22px;
+}
+#stand .sub-board .line-wrapper .saldo{
+   width: 22px;
+}
+#stand .sub-board .line-wrapper .gewonnen {
+   width: 30px;
+   padding-left: 25px;
+}
+#stand .sub-board .line-wrapper .gelijk {
+   width: 30px;
+}
+#stand .sub-board .line-wrapper .verloren{
+   width: 30px;
+}
+#stand .sub-board .line-wrapper .punten{
+   width: 30px;
+   padding-left: 32px;
+}
+#programma .header .uit,
+#programma .header .thuis,
+#uitslagen .header .uit ,
+#uitslagen .header .thuis{
+   width: 50%;
+   text-align: center;
+}
+#programma .sub-board .line-wrapper .thuis,
+#uitslagen .sub-board .line-wrapper .thuis{
+   width: 35%;
+   text-align: right;
+}
+#programma .sub-board .line-wrapper .uitslag,
+#uitslagen .sub-board .line-wrapper .uitslag {
+   width: 30%;
+   text-align:center;
+}
+#programma .sub-board .line-wrapper .uit,
+#uitslagen .sub-board .line-wrapper .uit {
+   width: 35%;
+   text-align: left;
+}
+#passed-events .header .club-info {
+   width: 470px;
+   text-align:center;
+}
+#passed-events .header .update-stand {
+   width: 145px;
+   text-align:center;
+   float:right;
+}
+#passed-events .sub-board .line-wrapper .club-thuis{
+   width:30%;
+   text-align: right;
+}
+#passed-events .sub-board .line-wrapper .uitslag{
+   width:15%;
+   text-align: center;
+}
+#passed-events .sub-board .line-wrapper .club-uit{
+   width:30%;
+   text-align: left;
+}
+#passed-events .sub-board .line-wrapper .update-date-link{
+   width:25%;
+   text-align: center;
+}
+.sub-board .line-wrapper a{
+   font-size: 12px;
+   text-decoration:none;
+   color: #428bca;
+   font-weight:bold;
+}
+.sub-board .line-wrapper a:hover{
+   color: #d9534f;
+}
+#registered-teams .header .club ,
+#registered-teams .header .founded ,
+#registered-teams .header .stadion ,
+#registered-teams .header .location ,
+#registered-teams .header .website {
+   text-align:center;
+}
+#registered-teams .header .club {
+   width: 150px;
+}
+#registered-teams .header .founded {
+   width: 90px;
+}
+#registered-teams .header .stadion {
+   width: 130px;
+}
+#registered-teams .header .location {
+   width: 110px;
+}
+#registered-teams .header .website {
+   width: 80px;
+}
+#registered-teams .sub-board .line-wrapper .club {
+   width: 145px;
+}
+#registered-teams .sub-board .line-wrapper .founded {
+   width: 105px;
+}
+#registered-teams .sub-board .line-wrapper .stadion {
+   width: 135px;
+}
+#registered-teams .sub-board .line-wrapper .location {
+   width: 80px;
+}
+#registered-teams .sub-board .line-wrapper .website {
+   width: 80px;
+}
+div.error_melding,
+div.waarschuwing_melding,
+div.melding_melding {
+   width: 588px;
+   margin: 12px auto;
+   padding:12px;
+   border: 2px solid #d9534f;
+   background: #eeeeee;
+   font-style:italic;
+   float:left;
+}
+div.error_melding {
+   color: #d9534f;
+   font-weight: bold;
+}
+div.waarschuwing_melding {
+}
+div.melding_melding {
+}
