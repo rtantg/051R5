@@ -1,4 +1,3 @@
-</article>
 <footer>
 <span style="margin:5px;float:left;">
 <?php if (isset($_SESSION['login'])) { echo "Ingelogd als: " . $_SESSION["name"] . " (" .$_SESSION['username'] . ")"; } ?>

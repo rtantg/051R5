@@ -3,7 +3,7 @@
 <?php require_once("./functions.php"); ?>
 <?php
 // maak query voor reeds gespeelde wedstrijden *EN* die een uitslag hebben.
-// verkrijg ook logo's 
+//   verkrijg ook logo's 
 $select = "SELECT a.*, b.logo, c.logo
            FROM competitieschema AS a
            JOIN 
@@ -235,9 +235,13 @@ else {
 }
 ?>
 <?php require_once("./header.php"); ?>
+
+<article id="content">
 <?php
    echo $html_stand;
    echo $html_uitslagen;
    echo $html_nog_te_spelen;
 ?>
+</article>
+
 <?php require_once("./footer.php");

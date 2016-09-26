@@ -45,6 +45,8 @@ if ($_POST['frm_score_update_submit'] ) {
 }
 require("./header.php");
 ?>
+<article id="content">
+
 <div class="message"><?php echo $message; ?></div>
 
 <form id="update-score-form" action="<?php echo $_server['PHP_SELF']; ?>" method="post">
@@ -81,4 +83,7 @@ require("./header.php");
       </div>
    </div>
 </form>
+
+</article>
+
 <?php require("./footer.php"); ?>

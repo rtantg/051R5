@@ -27,7 +27,7 @@ if (isset($_GET["select"]) ){
 <head>
 <meta charset="UTF-8">
 <title>Inzendopdracht 051R5</title>
-<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
 </head>
 
 <body>
@@ -49,5 +49,3 @@ if (isset($_GET["select"]) ){
          <a href="./login.php"><?php echo $_SESSION['login']?'uitloggen':'inloggen'; ?></a></li>
    </ul>
 </header>
-
-<article id="content">

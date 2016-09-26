@@ -54,8 +54,11 @@ if ($_POST['frm_user_submit']) {
    }
 }
 require('./header.php');
-echo $message;
 ?>
+
+<article id="content">
+
+<?php echo $message; ?>
 <form id='user-input-form' action=<?php echo $_SERVER['PHP_SELF'] ?> method='post'>
    <div class="display-board">
 
@@ -89,4 +92,6 @@ echo $message;
       </div>
    </div>
 </form>
+</article>
+
 <?php require('./footer.php'); ?>

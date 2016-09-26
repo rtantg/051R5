@@ -236,6 +236,8 @@ if ($_POST["frm_club_submit"]) {
 }
 require("./header.php");
 ?>
+<article id="content">
+
 <?php echo $message; ?>
 
 <?php echo $html_clubs_in_db; ?>
@@ -264,4 +266,5 @@ require("./header.php");
    </div>
 
 </form>
+</article>
 <?php require("./footer.php");

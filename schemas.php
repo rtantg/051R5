@@ -149,6 +149,7 @@ if ($_POST["frm_schemas_submit"] && sizeof($options_select)>1) {
    $message .=melding("er dienen minstens 2 clubs geregistreerd te zijn.",1);
 }
 ?>
+<article id="content">
 <?php echo $message; ?>
 
 <form id="select-event-form" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
@@ -249,4 +250,5 @@ if ($_POST["frm_schemas_submit"] && sizeof($options_select)>1) {
 </div>
 </form>
 <?php echo  $html_competities; ?>
+</article>
 <?php require("./footer.php"); ?>

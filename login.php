@@ -46,8 +46,8 @@ else {
 }
 require('./header.php');
 ?>
+<article id="content">
 <?php echo $message; ?>
-
 <?php if (!isset($_SESSION['login'])) { ?>
 
    <form id='login-form' action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post'>
@@ -80,4 +80,5 @@ require('./header.php');
       </div>
    </form>
 <?php } ?>
+</article>
 <?php require('./footer.php');
