@@ -3,18 +3,18 @@
 <?php require_once("./functions.php"); ?>
 <?php
 // maak query voor reeds gespeelde wedstrijden *EN* die een uitslag hebben.
-//   verkrijg ook logo's 
+//   verkrijg ook logo's
 $select = "SELECT a.*, b.logo, c.logo
            FROM competitieschema AS a
-           JOIN 
+           JOIN
               voetbalteams AS b ON (a.thuis_club=b.naam)
-           JOIN 
+           JOIN
               voetbalteams AS c ON (a.uit_club=c.naam)
-           WHERE 
+           WHERE
               a.datum <= CURDATE()
-           AND 
-              (a.thuis_score IS NOT NULL AND uit_score IS NOT NULL) 
-           ORDER BY 
+           AND
+              (a.thuis_score IS NOT NULL AND uit_score IS NOT NULL)
+           ORDER BY
               a.datum";
 
 if ($result = mysqli_query($link,$select)) {
@@ -26,7 +26,7 @@ if ($result = mysqli_query($link,$select)) {
       $thuis = $row[1];
       $uit = $row[2];
 
-      $uitslagen[$row[3]][] = array( 
+      $uitslagen[$row[3]][] = array(
          "thuis" => array ("naam" => $row[1], "score" => $row[4], "logo" => $row[7]),
          "uit"   => array ("naam" => $row[2], "score" => $row[5], "logo" => $row[6])
          );
@@ -53,7 +53,7 @@ if ($result = mysqli_query($link,$select)) {
          $stand[$uit]["punten"] += 0; // Als dit element nog leeg is dat willen we een 0 en geen null
       }
       else if ($row[4]<$row[5]) {
-         $stand[$thuis]["punten"] += 0; 
+         $stand[$thuis]["punten"] += 0;
          $stand[$uit]["punten"] += 3;
       }
       else if ($row[4]==$row[5]) {
@@ -83,11 +83,11 @@ if ($result = mysqli_query($link,$select)) {
 
          $html_uitslagen .= "<div class=\"line-wrapper\">";
 
-         $html_uitslagen .= "<div class=\"thuis\">"; 
+         $html_uitslagen .= "<div class=\"thuis\">";
          $html_uitslagen .= "<span>" . $wedstrijd["thuis"]["naam"] . "</span>";
-         $html_uitslagen .= "&nbsp;&nbsp"; 
+         $html_uitslagen .= "&nbsp;&nbsp";
          $html_uitslagen .= "<img width=\"30px\" src=\"" . $wedstrijd["thuis"]["logo"] . "\">";
-         $html_uitslagen .= "</div>"; 
+         $html_uitslagen .= "</div>";
 
          $html_uitslagen .= "<div class=\"uitslag\">";
          $html_uitslagen .= $wedstrijd["thuis"]["score"];
@@ -95,11 +95,11 @@ if ($result = mysqli_query($link,$select)) {
          $html_uitslagen .= $wedstrijd["uit"]["score"];
          $html_uitslagen .= "</div>";
 
-         $html_uitslagen .= "<div class=\"uit\">"; 
+         $html_uitslagen .= "<div class=\"uit\">";
          $html_uitslagen .= "<img width=\"30px\" src=\"" . $wedstrijd["uit"]["logo"] . "\">";
-         $html_uitslagen .= "&nbsp;&nbsp"; 
+         $html_uitslagen .= "&nbsp;&nbsp";
          $html_uitslagen .= "<span>" . $wedstrijd["uit"]["naam"] . "</span>";
-         $html_uitslagen .= "</div>"; 
+         $html_uitslagen .= "</div>";
 
          $html_uitslagen .= "</div>";
       }
@@ -234,6 +234,15 @@ else {
    $message = melding("er ging iets fout bij het verwerken van de gegevens.",0);
 }
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inzendopdracht 051R5</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+
 <?php require_once("./header.php"); ?>
 
 <article id="content">
@@ -243,5 +252,6 @@ else {
    echo $html_nog_te_spelen;
 ?>
 </article>
-
-<?php require_once("./footer.php");
+<?php require_once("./footer.php"); ?>
+</body>
+</html>

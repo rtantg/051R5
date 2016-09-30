@@ -53,8 +53,18 @@ if ($_POST['frm_user_submit']) {
       $message = melding("niet alle velden zijn ingevuld.",1);
    }
 }
-require('./header.php');
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inzendopdracht 051R5</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+
+<body>
+
+<?php require('./header.php'); ?>
 
 <article id="content">
 
@@ -93,5 +103,6 @@ require('./header.php');
    </div>
 </form>
 </article>
-
 <?php require('./footer.php'); ?>
+</body>
+</html>

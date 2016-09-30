@@ -4,5 +4,3 @@
 </span>
 <span style="margin:5px;float:right;"><?php echo date("y-m-d H:m"); ?></span>
 </footer>
-</body>
-</html>

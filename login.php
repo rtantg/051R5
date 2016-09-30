@@ -44,8 +44,18 @@ else {
       }
    }
 }
-require('./header.php');
 ?>
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Inzendopdracht 051R5</title>
+      <link rel="stylesheet" type="text/css" href="./css/style.css" />
+   </head>
+
+<body>
+<?php require('./header.php');?>
+
 <article id="content">
 <?php echo $message; ?>
 <?php if (!isset($_SESSION['login'])) { ?>
@@ -81,4 +91,6 @@ require('./header.php');
    </form>
 <?php } ?>
 </article>
-<?php require('./footer.php');
+<?php require('./footer.php');?>
+</body>
+</html>

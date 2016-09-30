@@ -43,8 +43,17 @@ if ($_POST['frm_score_update_submit'] ) {
       $message .= "<br>" . $update;
    }
 }
-require("./header.php");
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inzendopdracht 051R5</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+<?php require("./header.php"); ?>
+
 <article id="content">
 
 <div class="message"><?php echo $message; ?></div>
@@ -87,3 +96,5 @@ require("./header.php");
 </article>
 
 <?php require("./footer.php"); ?>
+</body>
+</html>

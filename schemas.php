@@ -143,12 +143,21 @@ if ($_POST["frm_schemas_submit"] && sizeof($options_select)>1) {
    }
 }
 ?>
-<?php require("./header.php"); ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inzendopdracht 051R5</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
 
+<?php require("./header.php"); ?>
 <?php if (sizeof($options_select)<2) {
    $message .=melding("er dienen minstens 2 clubs geregistreerd te zijn.",1);
 }
 ?>
+
 <article id="content">
 <?php echo $message; ?>
 
@@ -251,4 +260,6 @@ if ($_POST["frm_schemas_submit"] && sizeof($options_select)>1) {
 </form>
 <?php echo  $html_competities; ?>
 </article>
+</body>
+</html>
 <?php require("./footer.php"); ?>

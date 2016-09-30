@@ -234,8 +234,18 @@ if ($_POST["frm_club_submit"]) {
      }
   }
 }
-require("./header.php");
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Inzendopdracht 051R5</title>
+<link rel="stylesheet" type="text/css" href="./css/style.css" />
+</head>
+<body>
+
+<?php require_once("./header.php"); ?>
+
 <article id="content">
 
 <?php echo $message; ?>
@@ -267,4 +277,6 @@ require("./header.php");
 
 </form>
 </article>
-<?php require("./footer.php");
+<?php require_once("./footer.php"); ?>
+</body>
+</html>
