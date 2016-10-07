@@ -350,7 +350,7 @@ width: 200px;
 div.error_melding,
 div.waarschuwing_melding,
 div.melding_melding {
-   width: 588px;
+   width: 565px;
    margin: 12px auto;
    padding:12px;
    border: 2px solid #d9534f;
@@ -360,9 +360,20 @@ div.melding_melding {
 }
 div.error_melding {
    color: #d9534f;
-   font-weight: bold;
+   font-weight: normal;
 }
 div.waarschuwing_melding {
 }
 div.melding_melding {
+}
+
+#upload_all {
+    padding: 5px;
+}
+#upload_all a {
+    font-weight: 400;
+    color: #000000;
+}
+#upload_all a:hover {
+    color: #d9534f;
 }

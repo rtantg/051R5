@@ -1,18 +1,17 @@
 <header>
    <ul id="menu">
       <li>
-         <a href="./index.php">schema</a>
+          <a href="./index.php"><img width='45px' src='./images/home-goal.png'></a>
       </li>
 
-      <?php if ($_SESSION['login']) { ?>
+      <?php if (isset($_SESSION['login'])) { ?>
       <li>
          <a href="./schemas.php">schema opvoeren</a>
       </li>
       <?php } ?>
 
-      <li><a href="./users.php">gebruikers</a></li>
-      <li><a href="./teams.php">clubs</a></li>
+      <li><a href="./gebruikers.php">gebruikers</a></li>
       <li style="float:right;">
-         <a href="./login.php"><?php echo $_SESSION['login']?'uitloggen':'inloggen'; ?></a></li>
+         <a href="./login.php"><?php echo isset($_SESSION['login'])?'uitloggen':'inloggen'; ?></a></li>
    </ul>
 </header>

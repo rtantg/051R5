@@ -30,4 +30,3 @@ function check_password($str) {
 function check_email($str) {
    return preg_match('/[[:alpha:]]{2,}@[[:alpha:]]{2,}\.nl/',$str);
 }
-?>
