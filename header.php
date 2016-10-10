@@ -10,7 +10,7 @@
       </li>
       <?php } ?>
 
-      <li><a href="./gebruikers.php">gebruikers</a></li>
+      <li><a href="./gebruikers.php">registreren</a></li>
       <li style="float:right;">
          <a href="./login.php"><?php echo isset($_SESSION['login'])?'uitloggen':'inloggen'; ?></a></li>
    </ul>

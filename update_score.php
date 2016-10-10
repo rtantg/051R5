@@ -10,14 +10,14 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 // initialiseer variables
-$message    = "";
+$message  = '';
 $cid_found  = isset($_SESSION['cid_found'])?$_SESSION['cid_found']:"";
 $cid        = isset($_GET['cid'])?$_GET['cid']:"";
 
 if (empty($cid_found)){
     // cid_found not yet set => first time page load
     if (!empty($cid) && is_numeric($cid)) {
-
+        
         // 1ste time: selecteer betreffende wedstrijd en haal logo's op
         $select = "SELECT a.thuis_club,a.uit_club,b.logo,c.logo
                     FROM competitieschema AS a
@@ -30,10 +30,10 @@ if (empty($cid_found)){
         $result = mysqli_query($link,$select);
 
         if ($result == FALSE) {
-            $message = melding(mysqli_errno($link) . ": " . mysqli_error($link), 0);
+            $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link), 0);
         }
         elseif (!mysqli_num_rows ($result)){
-            $message = melding("wedstrijd niet gevonden om uitslag door te voeren.",0);
+            $message .= melding("wedstrijd niet gevonden om uitslag door te voeren.",0);
         }
         else {
             $row = mysqli_fetch_row($result);
@@ -45,7 +45,7 @@ if (empty($cid_found)){
         }
     }
     else {
-        $message = melding("invalid or no cid on url.", 0);
+        $message .= melding("invalid or no cid on url.", 0);
     }
 }// eerste verzoek
 $thuis_club = isset($_SESSION['thuis_club']) ? $_SESSION['thuis_club']:"";
@@ -59,7 +59,7 @@ $uit_score   = isset($_POST['frm_uit_score'])?$_POST['frm_uit_score']:NULL;
 if (isset($_POST['frm_score_update_submit']) ) {
 
     if(is_null($thuis_score) || is_null($uit_score)) {
-        $message = melding("uitslag niet volledig ingevuld.",2);
+        $message .= melding("uitslag niet volledig ingevuld.",2);
     }
     else {
         $update = "UPDATE competitieschema " . 
@@ -77,7 +77,7 @@ if (isset($_POST['frm_score_update_submit']) ) {
             exit;
         }
         else {
-            $message = melding(mysqli_errno($link) . ": " . mysqli_error($link),0);
+            $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link),0);
         }     
     }
 }// if form submit

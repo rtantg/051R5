@@ -5,57 +5,64 @@ require_once('./functions.php');
 
 $message = '';
 
-// login toggle. 
-if (isset($_SESSION['login']) && 
-    isset($_SESSION['username']) &&
-    isset($_SESSION['name'])) {
 
-    $message = melding("$_SESSION[name] ($_SESSION[username]): u bent nu uitgelogd.",2);
-    unset($_SESSION['login']);
-    unset($_SESSION['username']);
-    unset($_SESSION['name']);
+if (!$link){
+    $message = melding(mysqli_connect_errno() . ': ' . mysqli_connect_error(),1);
+    
 }
-if (isset($_POST['frm_login_submit'])) {
+else {
+    // login toggle. 
+    if (isset($_SESSION['login']) && 
+        isset($_SESSION['username']) &&
+        isset($_SESSION['name'])) {
 
-    $username = isset($_POST['frm_login_username'])?$_POST['frm_login_username']:'';
-    $password = isset($_POST['frm_login_password'])?$_POST['frm_login_password']:'';
+        $message = melding("$_SESSION[name] ($_SESSION[username]): u bent nu uitgelogd.",2);
+        unset($_SESSION['login']);
+        unset($_SESSION['username']);
+        unset($_SESSION['name']);
+    }
+    if (isset($_POST['frm_login_submit'])) {
 
-    if (!empty($username) && !empty($password)) {
-        $select = "SELECT * FROM gebruikers WHERE gebruikersnaam='$username'";
+        $username = isset($_POST['frm_login_username'])?$_POST['frm_login_username']:'';
+        $password = isset($_POST['frm_login_password'])?$_POST['frm_login_password']:'';
 
-        $result=mysqli_query($link,$select);
+        if (!empty($username) && !empty($password)) {
+            $select = "SELECT * FROM gebruikers WHERE gebruikersnaam='$username'";
 
-        if ($result==FALSE) {
-            $message=  melding(mysqli_errno($link) . ': ' . mysqli_error($link),0);
-        }
-        elseif(!mysqli_num_rows($result)) {
-            $message = melding("'$username' niet gevonden.",1);
-        }
-        else {
-            $row = mysqli_fetch_row($result);
+            $result=mysqli_query($link,$select);
 
-            if (md5($password) == $row[2]) {
-                $_SESSION['login']=TRUE;
-                $_SESSION['username']=$username;
-                $_SESSION['name']=$row[1];
-                $message = melding("$row[1] ('$username'): u bent nu ingelogd.",2);
-
-                if (isset($_SESSION['last_page'])) {
-                    $last_page = basename($_SESSION['last_page']);
-                    unset($_SESSION['last_page']);
-                    header("Location: $last_page");
-                    exit;
-                }
-             }
+            if ($result==FALSE) {
+                $message=  melding(mysqli_errno($link) . ': ' . mysqli_error($link),0);
+            }
+            elseif(!mysqli_num_rows($result)) {
+                $message = melding("'$username' niet gevonden.",1);
+            }
             else {
-                $message = melding('ongeldig wachtwoord.',1);
+                $row = mysqli_fetch_row($result);
+
+                if (md5($password) == $row[2]) {
+                    $_SESSION['login']=TRUE;
+                    $_SESSION['username']=$username;
+                    $_SESSION['name']=$row[1];
+                    $message = melding("$row[1] ('$username'): u bent nu ingelogd.",2);
+
+                    if (isset($_SESSION['last_page'])) {
+                        $last_page = basename($_SESSION['last_page']);
+                        unset($_SESSION['last_page']);
+                        header("Location: $last_page");
+                        exit;
+                    }
+                 }
+                else {
+                    $message = melding('ongeldig wachtwoord.',1);
+                }
             }
         }
+        else {
+            $message = melding('niet alle velden zijn ingevuld.',1);
+        }
     }
-    else {
-        $message = melding('niet alle velden zijn ingevuld.',1);
-    }
-}
+}// no db connection
 ?>
 <!DOCTYPE html>
 <html>
