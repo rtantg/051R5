@@ -79,21 +79,42 @@ div {
    padding: 4px;
    clear:both;
 }
+.sub-board h3 a {
+    text-decoration: none;
+    color: #000000;
+}
+.sub-board h3 a:hover {
+    text-decoration: none;
+    color: #5cb85c;
+}
+
 .display-board .header{
-   width: 616px;
+   width: 614px;
    border-bottom: 1px solid #000000;
    font-size: 14px;
    font-weight: 600;
    padding: 3px 0px;
 }
 .sub-board {
-   width:596px;
-   padding: 10px;
+   width:614px;
+   padding: 0px;
 }
 .display-board .line-wrapper{
-   width:606px;
+   width: 604px;
    margin: 5px;
    text-align: left;
+   height: 25px;
+}
+.line-wrapper.even,
+.line-wrapper.oneven {
+    width: 614px;
+    margin: 0px;
+}
+.line-wrapper.even {
+    background: #efefef;
+}
+line-wrapper.oneven {
+    background: #ffffff;
 }
 #login-form .line-wrapper .username ,
 #login-form .line-wrapper .password {
@@ -123,8 +144,13 @@ width: 200px;
    text-align: center;
    width: 180px;
 }
+.schema-select-wrapper {
+    padding: 25px 8px;
+    margin: 8px;
+    border: 1px solid #efefef;
+}
 #select-event-form .header .datum {
-   width: 256px;
+   width: 254px;
    text-align: center;
 }
 #select-event-form .sub-board .thuis,
@@ -137,8 +163,26 @@ width: 200px;
 }
 #select-event-form .submit {
    width: 604px;
-   margin: 12px 0px;
+   margin: 0px;
    padding-left: 12px;
+}
+#login-form .submit {
+   width: 604px;
+   margin: 0px;
+   padding: 0px;
+   padding-left: 12px;
+}
+.user-input-wrapper {
+    padding: 22px 12px;
+}
+#frm_login_submit {
+    width: 85px;
+}
+.login-wrapper {
+    padding: 12px;
+}
+div.submit {
+    padding: 15px;
 }
 #update-score-form .sub-board .thuis,
 #update-score-form .sub-board .uit ,
@@ -148,12 +192,10 @@ width: 200px;
    text-align: center;
 }
 #update-score-form .sub-board .thuis{
-   text-align: right;
-   font-size: 20px;
+    text-align: right;
 }
 #update-score-form .sub-board .uit {
-   text-align: left;
-   font-size: 20px;
+    text-align: left;
 }
 #update-score-form .sub-board .uitslag ,
 #update-score-form .header .uitslag {
@@ -161,7 +203,6 @@ width: 200px;
    text-align: center;
 }
 #update-score-form .sub-board .uitslag {
-   padding-top:20px;
 }
 #select-club-form .sub-board .select-club,
 #select-club-form .sub-board .submit {
@@ -187,6 +228,7 @@ width: 200px;
 }
 #stand .header .doelpunten{
    width: 108px;
+   
 }
 #stand .header .tegen{
    width: 30px;
@@ -232,7 +274,7 @@ width: 200px;
 }
 #stand .sub-board .line-wrapper .doelpunten{
    width: 22px;
-   padding-left: 50px;
+   padding-left: 66px;
 }
 #stand .sub-board .line-wrapper .tegen{
    width: 22px;
@@ -350,7 +392,7 @@ width: 200px;
 div.error_melding,
 div.waarschuwing_melding,
 div.melding_melding {
-   width: 565px;
+   width: 588px;
    margin: 12px auto;
    padding:12px;
    border: 2px solid #d9534f;
@@ -365,6 +407,8 @@ div.error_melding {
 div.waarschuwing_melding {
 }
 div.melding_melding {
+    border: 1px solid #efefef;
+    background: #ffffff;
 }
 
 #upload_all {
@@ -376,4 +420,7 @@ div.melding_melding {
 }
 #upload_all a:hover {
     color: #d9534f;
+}
+.team-logo {
+    width: 22px;
 }

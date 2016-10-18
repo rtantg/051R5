@@ -1,86 +1,141 @@
 <?php
 session_start();
-require_once("./db.php");
-require_once("./functions.php");
+require_once('./db.php');
+require_once('./functions.php');
 
-// Het is niet toegestaan om handmatig update script uit te voeren
-// daarom doorverwijzen naar schemas.php
-if (!isset($_SESSION['login'])) {
-    header('Location: ./schemas.php');
+$datum = '';
+$result = '';
+$query = '';
+$update_form = '';
+$message  = '';
+$_post_keys = array();
+
+// login check
+if (!isset($_SESSION['username'])) {
+    header('Location: ./index.php');
     exit;
 }
+if (isset($_GET['d']) && !empty($_GET['d'])) {
+    $datum = $_GET['d'];
+}
+elseif (isset($_POST['frm_update_score_datum']) && !empty($_POST['frm_update_score_datum'])) {
+    $datum = $_POST['frm_update_score_datum'];
+}
+else {
+    header('Location: ./index.php');
+    exit;
+ }
 // initialiseer variables
-$message  = '';
-$cid_found  = isset($_SESSION['cid_found'])?$_SESSION['cid_found']:"";
-$cid        = isset($_GET['cid'])?$_GET['cid']:"";
 
-if (empty($cid_found)){
-    // cid_found not yet set => first time page load
-    if (!empty($cid) && is_numeric($cid)) {
-        
-        // 1ste time: selecteer betreffende wedstrijd en haal logo's op
-        $select = "SELECT a.thuis_club,a.uit_club,b.logo,c.logo
-                    FROM competitieschema AS a
-                    JOIN voetbalteams AS b 
-                        ON (a.thuis_club=b.naam)
-                    JOIN voetbalteams AS c 
-                        ON (a.uit_club=c.naam)
-                    WHERE a.cid='" . $cid . "'";
+$select = "SELECT a.*, b.logo, c.logo
+            FROM competitieschema AS a
+            JOIN voetbalteams AS b 
+                ON (a.thuis_club=b.naam)
+            JOIN voetbalteams AS c 
+                ON (a.uit_club=c.naam)
+            WHERE 
+                a.thuis_score IS NULL 
+            AND 
+                a.uit_score IS NULL
+            AND
+                a.datum='$datum'";
 
-        $result = mysqli_query($link,$select);
+$result = mysqli_query($link,$select);
 
-        if ($result == FALSE) {
-            $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link), 0);
-        }
-        elseif (!mysqli_num_rows ($result)){
-            $message .= melding("wedstrijd niet gevonden om uitslag door te voeren.",0);
-        }
-        else {
-            $row = mysqli_fetch_row($result);
-            $_SESSION['thuis_club'] = $row[0];
-            $_SESSION['thuis_logo'] = $row[2];
-            $_SESSION['uit_club'] = $row[1];
-            $_SESSION['uit_logo'] = $row[3];
-            $_SESSION['cid_found'] = $cid;
-        }
-    }
-    else {
-        $message .= melding("invalid or no cid on url.", 0);
-    }
-}// eerste verzoek
-$thuis_club = isset($_SESSION['thuis_club']) ? $_SESSION['thuis_club']:"";
-$thuis_logo = isset($_SESSION['thuis_logo']) ? $_SESSION['thuis_logo']:"";
-$uit_club   = isset($_SESSION['uit_club'])   ? $_SESSION['uit_club']:"";
-$uit_logo   = isset($_SESSION['uit_logo'])   ? $_SESSION['uit_logo']:"";
-$thuis_score = isset($_POST['frm_thuis_score'])?$_POST['frm_thuis_score']:NULL;
-$uit_score   = isset($_POST['frm_uit_score'])?$_POST['frm_uit_score']:NULL;
-
+if ($result == FALSE) {
+    $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link), 0);
+}
+if (mysqli_num_rows($result)==0) {
+    header('Location: ./index.php');
+    exit;
+}
+while($row = mysqli_fetch_row($result)) {
+    // to check $_POST later
+    $_post_keys[] = array(
+        'cid' => $row[0],
+        'thuis' => "frm_thuis_score_$row[0]",
+        'uit'   => "frm_uit_score_$row[0]"
+    );
+}
 // verwerk formulier on submit
 if (isset($_POST['frm_score_update_submit']) ) {
-
-    if(is_null($thuis_score) || is_null($uit_score)) {
-        $message .= melding("uitslag niet volledig ingevuld.",2);
-    }
-    else {
-        $update = "UPDATE competitieschema " . 
-                  "SET thuis_score=" . $thuis_score . ", " . "uit_score=" . $uit_score . 
-                  " WHERE cid=" . $cid_found;
-
-        unset($_SESSION['cid_found']);
-        unset($_SESSION['thuis_club']);
-        unset($_SESSION['thuis_logo']);
-        unset($_SESSION['uit_club']);
-        unset($_SESSION['uit_logo']);
-
-        if (mysqli_query($link,$update)) {
-            header("Location: ./index.php");
-            exit;
+    $message = '';
+    $valid_input = false;
+    // check if all is filled in
+    foreach ($_post_keys as $key) {
+        
+        if (isset($_POST[$key['thuis']]) && isset($_POST[$key['uit']])) {
+            
+            if (is_numeric($_POST[$key['thuis']]) && is_numeric($_POST[$key['uit']])) {
+            
+                $query  = "UPDATE competitieschema ";
+                $query .= "SET thuis_score='" . $_POST[$key['thuis']] . "', ";
+                $query .= "uit_score='" . $_POST[$key['uit']] . "' ";
+                $query .= "WHERE cid='$key[cid]'";
+ 
+                if (mysqli_query($link,$query)==false) { 
+                    $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link),0);
+                }
+                $valid_input = true;
+            }
+            else {
+                $message = melding('geen juiste invoer van score.', 2);
+            }
         }
-        else {
-            $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link),0);
-        }     
+    }
+    if ($valid_input) {
+        $message = '';
     }
 }// if form submit
+$result = mysqli_query($link,$select);
+
+if ($result == FALSE) {
+    $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link), 0);
+}
+if (mysqli_num_rows($result)==0) {
+    header('Location: ./index.php');
+}
+$update_form .= "<div class='sub-board'>";
+$update_form .= "<h3>$datum</h2>";
+
+while($row = mysqli_fetch_row($result)) {
+    $cid  = $row[0];
+    $thuis = array('naam' => $row[1],'logo' => $row[6]);
+    $uit   = array('naam' => $row[2],'logo' => $row[7]);
+
+    $update_form .= "<div class='line-wrapper'>";
+
+    $update_form .= "<div class='thuis'>";
+    $update_form .= $thuis['naam'];
+    $update_form .= "&nbsp;&nbsp;<img class='team-logo' src='";
+    $update_form .= $thuis['logo'];
+    $update_form .= "'>";
+    $update_form .= '</div>';
+
+    $update_form .= "<div class='uitslag'>";
+    $update_form .= "<input size='3' name='frm_thuis_score_$cid' ";
+    $update_form .= "value='";
+    $key1 = "frm_thuis_score_$cid";
+    $update_form .= isset($_POST[$key1]) ? $_POST[$key1] : '';
+    $update_form .= "' type='text'>";
+    $update_form .= '&nbsp;&nbsp';
+    $update_form .= "<input size='3' name='frm_uit_score_$cid' value='";
+    $key2 = "frm_uit_score_$cid";
+    $update_form .= isset($_POST[$key2]) ? $_POST[$key2] : '';
+    $update_form .= "' type='text'>";
+    $update_form .= '</div>';
+
+    $update_form .= "<div class='uit'>";
+    $update_form .= "&nbsp;&nbsp;<img class='team-logo' src='";
+    $update_form .= $uit['logo'];
+    $update_form .= "'>";
+    $update_form .= '&nbsp;&nbsp';
+    $update_form .= $uit['naam'];
+    $update_form .= '</div>';
+
+    $update_form .= '</div>';
+}
+$update_form .= '</div>';
 ?>
 <!DOCTYPE html>
 <html>
@@ -94,50 +149,29 @@ if (isset($_POST['frm_score_update_submit']) ) {
 
 <article id="content">
 
-<?php 
-echo $message;
-if (!empty($thuis_club) && !empty($uit_club)) {
-?>
-<form id="update-score-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-   <div class="display-board">
-      <h2>update uw score</h2>
+    <?php echo $message; ?>
 
-      <div class="header">
-         <div class="thuis">thuis</div>
-         <div class="uitslag">&nbsp;</div>
-         <div class="uit">uit</div>
-      </div>
+    <form id='update-score-form' action='<?php echo $_SERVER['PHP_SELF']; ?>' method='post'>
+        <input name='frm_update_score_datum' type='hidden' value='<?php echo $datum; ?>' />
+    
+    <div class='display-board'>
+        <h2>update uw score</h2>
 
-      <div class="sub-board">
+        <div class='header'>
+            <div class='thuis'>thuis</div>
+            <div class='uitslag'>&nbsp;</div>
+            <div class='uit'>uit</div>
+        </div>
 
-      <div class="thuis">
-         <?php 
-         echo $thuis_club; 
-         echo "<img src=\"" . $thuis_logo . "\">";  
-         ?>
-      </div>
+        <?php echo $update_form; ?>
 
-      <div class="uitslag">
-         <input size="3" name="frm_thuis_score" type="text">
-         &nbsp;&nbsp;
-         <input size="3" name="frm_uit_score" type="text">
-      </div>
-
-      <div class="uit">
-         <?php 
-         echo "<img src=\"" . $uit_logo . "\">";
-         echo $uit_club; 
-         ?>
-      </div>
-
-      <div class="submit">
-         <input name="frm_score_update_submit" type="submit" value="update uitslag">
-      </div>
-      </div>
-   </div>
+        <div class='submit'>
+            <input name='frm_score_update_submit' type='submit' value='update uitslag'>
+        </div>
+    </div>
+    
 </form>
-<?php } ?>
 </article>
-<?php require("./footer.php"); ?>
+<?php require('./footer.php'); ?>
 </body>
 </html>

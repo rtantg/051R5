@@ -1,10 +1,10 @@
 <header>
    <ul id="menu">
       <li>
-          <a href="./index.php"><img width='45px' src='./images/home-goal.png'></a>
+          <a id='home-button' href="./index.php">home</a>
       </li>
 
-      <?php if (isset($_SESSION['login'])) { ?>
+      <?php if (isset($_SESSION['username'])) { ?>
       <li>
          <a href="./schemas.php">schema opvoeren</a>
       </li>
@@ -12,6 +12,6 @@
 
       <li><a href="./gebruikers.php">registreren</a></li>
       <li style="float:right;">
-         <a href="./login.php"><?php echo isset($_SESSION['login'])?'uitloggen':'inloggen'; ?></a></li>
+         <a href="./login.php"><?php echo isset($_SESSION['username'])?'uitloggen':'inloggen'; ?></a></li>
    </ul>
 </header>

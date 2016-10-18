@@ -25,19 +25,19 @@ else {
             $valid_input = TRUE;
 
             if (!preg_match('/[[:alpha:]]+/',$name)) {
-                $message .= melding("uw naam moet uit alphanumerieke karakters bestaan.",1);
+                $message .= melding("uw naam moet uit alphanumerieke karakters bestaan.",2);
                 $valid_input = FALSE;
             }
             if (!preg_match('/[[:alpha:]]{3,20}/', $username)) {
-                $message .= melding("gebruikersnaam: '" . $username . "' moet uit minstens 3 alphanumerieke karakters bestaan.",1);
+                $message .= melding("gebruikersnaam: '" . $username . "' moet uit minstens 3 alphanumerieke karakters bestaan.",2);
                 $valid_input = FALSE;
             }
             if (!preg_match('/[!-~]{8,32}/',$password)) {
-                $message .= melding("het wachtwoord moet uit minstens 8 karakters bestaan (!-~)",1);
+                $message .= melding("het wachtwoord moet uit minstens 8 karakters bestaan (!-~)",2);
                 $valid_input = FALSE;
             }
             if (!preg_match('/[[:alpha:]]{2,}@[[:alpha:]]{2,}\.nl/',$email)) {
-                $message .= melding("emailadres: '" . $email . "' moet volgens volgend formaat:\n\n&nbsp;&nbsp;&nbsp;&lt;naam&gt;@&lt;domein&gt;.nl\n\n waar 'naam' en 'domein' beide uit minstens 2 alphanumerieke karakters bestaan.",1);
+                $message .= melding("emailadres: '" . $email . "' moet volgens volgend formaat:\n\n&nbsp;&nbsp;&nbsp;&lt;naam&gt;@&lt;domein&gt;.nl\n\n waar 'naam' en 'domein' beide uit minstens 2 alphanumerieke karakters bestaan.",2);
                 $valid_input = FALSE;
             }
             if ($valid_input) {
@@ -48,17 +48,14 @@ else {
                     $message .= melding(mysqli_errno($link) . ": " . mysqli_error($link),0);
                 }
                 else {
-                    $_SESSION['users_name'] = $name;
-                    $_SESSION['users_username'] = $username;
-                    $_SESSION['users_email'] = $email;
-
-                    header('Location: ./gebruikers.php');
+                    $_SESSION['username'] = $username;
+                    header('Location: ./index.php');
                     exit;
                 }
             }
         }
         else {
-            $message .= melding("niet alle velden zijn ingevuld.",1);
+            $message .= melding("Niet alle velden zijn ingevuld!",2);
         }
     }
 } // end no database connection 
@@ -77,14 +74,6 @@ else {
 
 <article id="content">
 <?php 
-if (isset($_SESSION['users_name']) && 
-    isset($_SESSION['users_username']) &&
-    isset($_SESSION['users_email'])) {
-        $message .= melding($_SESSION['users_name'] . ", " . $_SESSION['users_username'] . ', ' . $_SESSION['users_email'] . ' succesvol toegevoegd.',2);
-        unset($_SESSION['users_naam']);
-        unset($_SESSION['users_usernaam']);
-        unset($_SESSION['users_email']);
-}
 echo $message; 
 ?>
 <form id='user-input-form' action=<?php echo $_SERVER['PHP_SELF'] ?> method='post'>
@@ -92,7 +81,7 @@ echo $message;
 
       <h2>voeg gebruiker toe</h2>
       <div class="sub-board">
-
+         <div class='user-input-wrapper'>
          <div class="line-wrapper">
             <div class="name">naam:</div>
             <input type="text" size="25" name='frm_user_name' value="<?php if(isset($_POST["frm_user_name"])){echo $_POST['frm_user_name'];} ?>">
@@ -116,7 +105,7 @@ echo $message;
          <div class="submit">
             <input type='submit' name='frm_user_submit' value='verstuur'>
          </div>
-
+         </div>
       </div>
    </div>
 </form>

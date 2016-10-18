@@ -2,11 +2,11 @@
 function melding($str,$i) {
   switch ($i) {
       case 0:
-         return "<div class=\"error_melding\">Error: " . nl2br($str) . "</div>";
+         return "<div class='error_melding'>Error: " . nl2br($str) . '</div>';
       case 1:
-         return "<div class=\"waarschuwing_melding\">Waarschuwing: " . nl2br($str) . "</div>";
+         return "<div class='waarschuwing_melding'>Waarschuwing: " . nl2br($str) . '</div>';
       case 2:
-         return "<div class=\"melding_melding\">Melding: " . nl2br($str) . "</div>";
+         return "<div class='melding_melding'>" . nl2br($str) . "</div>";
    }
 }
 // callback functie om huidige stand te sorteren

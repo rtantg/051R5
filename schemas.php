@@ -26,7 +26,7 @@ else {
     // Deze pagina vereist een login voor toegang
     // Check if die er is, anders doorverwijzen naar login page
     // en een redirect terug.
-    if (!isset($_SESSION['login'])) {
+    if (!isset($_SESSION['username'])) {
         $_SESSION['last_page'] = $_SERVER['PHP_SELF'];
         header('Location: ./login.php');
         exit;
@@ -34,54 +34,6 @@ else {
     $message = '';
     $html_competities = '';
     $options_select = array();
-
-    // selecteer de reeds gespeelde wedstrijden
-    $select1 = 'SELECT a.*,b.logo,c.logo FROM competitieschema AS a
-                JOIN voetbalteams AS b 
-                    ON (a.thuis_club = b.naam)
-                JOIN voetbalteams AS c
-                    ON (a.uit_club = c.naam)
-                WHERE datum <= CURDATE() ORDER BY datum ASC';
-
-    $result1 = mysqli_query($link,$select1);
-
-    if ($result1 == FALSE) {
-        $message = melding(mysqli_errno($link).': '.mysqli_error($link),0);
-    }
-    elseif (!mysqli_num_rows($result1)) {
-        $message = melding('er zijn nog geen wedstrijden gespeeld.',2);
-    }
-    else {
-        $html_competities = "<div id='passed-events' class='display-board'>";
-        $html_competities .= '<h2>gespeelde wedstrijden</h2>';
-
-        $html_competities .= "<div class='header'>";
-        $html_competities .= "<div class='club-info'>uitslag</div>";
-        $html_competities .= "<div class='update-stand'>update stand</div>";
-        $html_competities .= '</div>';
-
-        $html_competities .= "<div class='sub-board'>";
-
-        while ($row = mysqli_fetch_row($result1)) {
-            $html_competities .= "<div class='line-wrapper'>";
-            $html_competities .= "<div class='club-thuis'>";
-            $html_competities .= $row[1];
-            $html_competities .= "<img style='vertical-align:middle;' width='24px' src='$row[6]'>";
-            $html_competities .= '</div>';
-            $html_competities .= "<div class='uitslag'>";
-            $html_competities .= (is_null($row[4]) ? ' - ' : $row[4]) . ' - ' . (is_null($row[5]) ? ' - ' : $row[5]);
-            $html_competities .= '</div>';
-            $html_competities .= "<div class='club-uit'>";
-            $html_competities .= "<img style='vertical-align:middle;' width='24px' src='$row[7]'>";
-            $html_competities .= $row[2];
-            $html_competities .= '</div>';
-            $html_competities .= "<div class='update-date-link'><a href='./update_score.php?cid=$row[0]'>$row[3]</a>";
-            $html_competities .= '</div>';
-            $html_competities .= '</div>';
-        }
-        $html_competities .= '</div>';
-        $html_competities .= '</div>';
-    }
 
     // verzamel clubs die bestaan in de db voor de select controls op userform
     // om wedstrijden te plannen.
@@ -187,6 +139,8 @@ else {
             </div>
 
             <div class='sub-board'>
+                
+                <div class='schema-select-wrapper'>
 
                 <div class='thuis'>
                     <select name='frm_thuis_club'>
@@ -268,15 +222,16 @@ else {
                         ?>
                         </select>
                     </div>
+                    </div>
+                    
                     <div class='submit'>
-                        <input type='submit' name='frm_schemas_submit' value='Verstuur' />
+                        <input type='submit' id='frm_schemas_submit' name='frm_schemas_submit' value='Verstuur' />
                     </div>
                 </div>
             </div>
     </form>
     <?php } ?>
-    <?php echo  $html_competities; ?>
 </article>
+<?php require('./footer.php'); ?>
 </body>
 </html>
-<?php require('./footer.php'); ?>
